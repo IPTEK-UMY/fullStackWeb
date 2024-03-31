@@ -1,0 +1,105 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+if (Astro.request.method === "POST") {
+  const formData = await Astro.request.formData();
+  const title = formData.get("title");
+  const deskripsi = formData.get("deskripsi");
+  const data = { title, deskripsi };
+
+  await fetch("http://localhost:3211/", {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+}
+---
+
+<Layout title="Create Post">
+  <h1 class="header">Create Post</h1>
+  <div class="container">
+    <form method="POST">
+      <input class="title" type="text" placeholder="Title" name="title" />
+      <textarea name="deskripsi" id="deskripsi" placeholder="Deskripsi..."
+      ></textarea>
+      <button type="submit">Create</button>
+    </form>
+  </div>
+</Layout>
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+  .header {
+    color: wheat;
+    text-align: center;
+  }
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .title {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 2rem;
+    font-weight: 600;
+    color: aliceblue;
+    background-color: #13151a;
+    border: 2px solid grey;
+    border-radius: 10px;
+  }
+
+  .title:focus {
+    border: 2px solid rgb(204, 255, 0);
+  }
+
+  #deskripsi {
+    border: 2px solid grey;
+    border-radius: 10px;
+    resize: none;
+    width: 100%;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    background-color: #13151a;
+    font-size: 1.2rem;
+    color: aliceblue;
+    padding: 16px;
+    height: 350px;
+  }
+
+  #deskripsi:focus {
+    border: 2px solid yellow;
+  }
+
+  form {
+    display: flex;
+    width: 650px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  button {
+    align-self: self-start;
+    background-color: rgb(84, 84, 221);
+    color: whitesmoke;
+    padding: 10px 15px;
+    font-family: "Poppins", sans-serif;
+    font-family: Tahoma, sans-serif;
+    font-size: 1.5rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: rgb(109, 109, 215);
+  }
+</style>
